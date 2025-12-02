@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1 class="my-3">영화 등록 페이지</h1>
+
+<form action="{% url "movies:create" %}" method ="POST">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button type="submit" class="btn btn-primary">제출</button>
+
+</form>
+
+{% endblock content %}

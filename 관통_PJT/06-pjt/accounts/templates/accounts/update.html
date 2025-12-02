@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>UPDATE PAGE</h1>
+  <hr>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">수정</button>
+  </form>
+  <hr>
+  <form action="{% url "accounts:delete" %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">회원탈퇴</button>
+  </form>
+
+{% endblock content %}
+
+
+
+
