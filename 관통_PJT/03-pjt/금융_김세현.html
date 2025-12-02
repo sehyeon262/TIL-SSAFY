@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>금융-03_PJT</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap" rel="stylesheet">
+
+
+  <link href="style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- 요구사항 F03 - 네비게이션 바 구현 -->
+  <!-- 상단 헤더바 -->
+  <header class="bg-warning-subtle py-3">
+    <div class="container">
+      <h1 class="h5 text-center mb-0 fw-bold">
+        <span class="rubik-dirt-regular">Bori</span>님의 프로필 페이지
+      </h1>
+    </div>
+  </header>
+
+  <!-- 페이지 전환 네비게이션 -->
+  <nav class="border-bottom py-3">
+    <div class="container">
+      <ul class="nav nav-pills justify-content-center gap-2">
+        <!-- 기본정보 페이지에서는 여기에 active -->
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page"
+            href="file:///C:/Users/SSAFY/Desktop/sehyeon/%EA%B4%80%ED%86%B5/03-pjt/%EA%B8%88%EC%9C%B5_%EA%B9%80%EC%84%B8%ED%98%84.html">
+            기본 정보 수정
+          </a>
+        </li>
+        <!-- 포트폴리오 페이지에서는 여기에 active 주기 -->
+        <li class="nav-item">
+          <a class="nav-link" href="portfolio.html">
+            포트폴리오 수정
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="card shadow-lg border-0 rounded-3 page-card mx-auto">
+      <div class="card-body p-4 p-md-5">
+        <h2 class="text-center fw-bold mb-4">기본 정보 수정</h2>
+
+        <div class="row g-4">
+          <!-- 왼쪽: 프로필, 자기소개 -->
+          <div class="col-12 col-md-6">
+            <div class="text-center">
+              <div class="mb-2 fw-bold">프로필 사진</div>
+              <div class="ratio ratio-1x1 rounded-circle overflow-hidden border mx-auto" style="max-width:260px;">
+                <img
+                  src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyNTA0MDRfMTMz%2FMDAxNzQzNzU0MTcyODMx.r-ESAuiXmiskoOzyyhyTPgVuxyWlOt8fmnhRNYn-3Tcg.dgrWykkzJ5Kkc8cXSxigogoML4L5cmBBF07AB0VChVQg.PNG%2FKakaoTalk_20250404_161214980_01.png&type=sc960_832"
+                  alt="프로필" class="w-100 h-100" style="object-fit:cover;">
+              </div>
+            </div>
+
+            <!-- 자기 소개 -->
+            <div class="mb-2 fw-bold text-center">자기 소개</div>
+            <div class="input-group">
+              <textarea class="form-control" id="intro" placeholder="안녕하세요. 저는 부자가 되고 싶습니다."></textarea>
+              <button class="btn btn-warning" type="submit">Update</button>
+            </div>
+          </div>
+
+          <!-- 오른쪽: 투자 성향 -->
+          <div class="col-12 col-md-6 d-flex flex-column min-vh-50">
+            <div class="flex-grow-1"></div>
+
+            <!-- 1) 투자상품 선호도 -->
+            <section class="text-center">
+              <div class="fw-bold mb-3">투자상품 선호도</div>
+              <div class="d-flex justify-content-center flex-wrap gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="likeStock">
+                  <label class="form-check-label" for="likeStock">주식</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="likeBond">
+                  <label class="form-check-label" for="likeBond">채권</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="likeRealEstate">
+                  <label class="form-check-label" for="likeRealEstate">부동산</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="likeCrypto">
+                  <label class="form-check-label" for="likeCrypto">가상 화폐</label>
+                </div>
+              </div>
+            </section>
+
+            <div class="flex-grow-1"></div>
+
+            <!-- 2) 투자 스타일 -->
+            <section class="text-center">
+              <div class="fw-bold mb-3">투자 스타일</div>
+              <div class="d-flex justify-content-center gap-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="investStyle" id="styleSafe">
+                  <label class="form-check-label" for="styleSafe">안정적</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="investStyle" id="styleNeutral" checked>
+                  <label class="form-check-label" for="styleNeutral">중립적</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="investStyle" id="styleAggressive">
+                  <label class="form-check-label" for="styleAggressive">공격적</label>
+                </div>
+              </div>
+            </section>
+
+            <div class="flex-grow-1"></div>
+
+            <!-- 3) 관심 종목 -->
+            <section class="text-center">
+              <div class="fw-bold mb-3">관심 종목</div>
+              <div class="d-flex justify-content-center flex-wrap gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sectorIT">
+                  <label class="form-check-label" for="sectorIT">정보기술</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sectorConsumer">
+                  <label class="form-check-label" for="sectorConsumer">소비재</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="sectorFinance">
+                  <label class="form-check-label" for="sectorFinance">금융</label>
+                </div>
+              </div>
+            </section>
+
+            <div class="flex-grow-1"></div>
+          </div>
+
+          <!-- 요구사항 F02 - 회원정보 입력 -->
+          <!-- 회원 번호 -->
+          <div class="mb-3">
+            <label for="memberNo" class="form-label">회원 번호</label>
+            <input type="text" id="memberNo" class="form-control" value="1" disabled>
+          </div>
+
+          <!-- ID -->
+          <div class="mb-3">
+            <label for="memberId" class="form-label">ID</label>
+            <input type="text" id="memberId" class="form-control" value="김보리" disabled>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="emailLocal" class="form-label">Email</label>
+            <div class="input-group">
+              <input type="text" id="emailLocal" class="form-control" placeholder="이메일을 설정해주세요"
+                pattern="^[A-Za-z0-9._%+-]+$" inputmode="email" aria-describedby="emailDomain" required>
+              <span class="input-group-text" id="emailDomain">@example.com</span>
+              <button class="btn btn-warning" type="button">Update</button>
+            </div>
+          </div>
+
+          <!-- Nickname -->
+          <div class="mb-3">
+            <label for="nickname" class="form-label">Nickname</label>
+            <div class="input-group">
+              <input type="text" id="nickname" class="form-control" placeholder="닉네임을 설정해주세요" required>
+              <button class="btn btn-warning" type="button">Update</button>
+            </div>
+          </div>
+
+          <!-- 나이: 숫자만 -->
+          <div class="mb-3">
+            <label for="age" class="form-label">나이</label>
+            <div class="input-group">
+              <input type="number" id="age" class="form-control" placeholder="나이를 입력해주세요" inputmode="numeric" required>
+              <button class="btn btn-warning" type="button">Update</button>
+            </div>
+          </div>
+
+          <form>
+            <label class="form-label d-block">자산과 연봉</label>
+
+            <div class="row g-3 align-items-end">
+              <!-- 자산 -->
+              <div class="col-12 col-md-5">
+                <div class="input-group w-100">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" name="asset" placeholder="현재 자산을 입력해주세요" inputmode="numeric"
+                    pattern="\d*">
+                </div>
+              </div>
+
+              <!-- 연봉 -->
+              <div class="col-12 col-md-6 offset-md-1">
+                <div class="input-group w-100">
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" name="income" placeholder="연봉을 입력해주세요" inputmode="numeric"
+                    pattern="\d*">
+                  <button type="submit" class="btn btn-warning">Update</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div> <!-- /.row -->
+      </div> <!-- /.card-body -->
+    </div> <!-- /.card -->
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
