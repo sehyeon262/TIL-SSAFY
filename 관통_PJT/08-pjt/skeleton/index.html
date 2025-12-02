@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+  <div id="movie-container" class="container">
+    <h1>Movies
+      <!-- 모달 버튼 예시 -->
+      <!-- <button id="show-modal-btn" class="class btn btn-light" data-bs-toggle="modal" data-bs-target="#movie-details-modal">Modal Test</button> -->
+    </h1>
+    <div class="row">
+      
+      <div id="movie-list-section" class="col">
+        <h2>Movie List</h2>
+        <div id="movie-genre-filter"></div>
+      </div>
+      <div id="movie-form-section" class="col">
+        <!-- 영화 생성 영역 -->
+        <h2>Add Movie</h2>
+        <!-- 여기에 입력 양식을 구현하세요 -->
+      </div>
+    </div>
+  </div>
+  <!-- 도전과제 영화 상세정보 모달 -->
+  <div id="movie-details-modal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">영화 제목을 여기에 입력하세요</div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col">
+                <div class="d-flex justify-content-center align-items-center">
+                  <img src=https://image.tmdb.org/t/p/w500/3hO6DIGRBaJQj2NLEYBMwpcz88D.jpg" alt="" class="img-fluid object-fit-contain" style="height: 60vh;">
+                </div>
+              </div>
+              <div class="col">
+                <p class="overflow-y-auto" style="max-height: 60vh;">
+                  촉망받는 은행 간부 앤디 듀프레인은 아내와 그녀의 정부를 살해했다는 누명을 쓴다. 주변의 증언과 살해 현장의 그럴듯한 증거들로 그는 종신형을 선고받고 악질범들만 수용한다는 지옥같은 교도소 쇼생크로 향한다. 인간 말종 쓰레기들만 모인 그곳에서 그는 이루 말할 수 없는 억압과 짐승보다 못한 취급을 당한다. 그러던 어느 날, 간수의 세금을 면제받게 해 준 덕분에 그는 일약 교도소의 비공식 회계사로 일하게 된다. 그 와중에 교도소 소장은 죄수들을 이리저리 부리면서 검은 돈을 긁어 모으고 앤디는 이 돈을 세탁하여 불려주면서 그의 돈을 관리하는데...
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="genres.js"></script>
+  <script src="movies.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
