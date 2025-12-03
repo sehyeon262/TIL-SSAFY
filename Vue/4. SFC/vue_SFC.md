@@ -673,7 +673,7 @@ https://vitejs.dev/guide/assets.html#the-public-directory
 - MyComponent.vue 생성
 
 ### ▶️ '.vue' 는 component 안에 생성하면 됨 
-### ▶️ vue component 기본구조 만들 때 'vb3s' 치면 됨 !!
+### ▶️ vue component 기본구조 만들 때 **'v3s'** 치면 됨 !!
 
 ```vue
 <!-- MyComponent.vue -->
