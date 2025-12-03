@@ -6,7 +6,7 @@
 - Props 세부사항
 - Props 활용
 
-### 2. omponent Events
+### 2. Component Events
 - Emit
 - 이벤트 발신 및 수신
 - emit 이벤트 선언
@@ -453,6 +453,422 @@ defineProps({
 ```
 
 
+## 🔵 v-for와 함께 사용하여 반복되는 요소를 props로 전달하기 (3/3)
+- props 선언 및 출력 결과 확인
+```
+message
+Alice
+message
+1
+사과
+2
+바나나
+3
+딸기
+```
+
+
+---
+
+
+# < 2. Component Events >
+
+# ✅ Emit
+
+## 🔵 동일한 데이터, 하지만 다른 컴포넌트
+- 부모는 자식에게 데이터를 전달(Pass Props)
+- 자식은 자신에게 일어난 일을 부모에게 알림(Emit event)
+
+![alt text](image-3.png)
+
+
+## 🔵 $emit()
+- 자식 컴포넌트가 이벤트를 발생시켜 부모 컴포넌트로 데이터를 전달하는 메서드
+```
+- emit은 자식 컴포넌트가 부모 컴포넌트에게 특정 이벤트가 발생했음을 알리고 데이터를 전달하는 기능.
+- '내려가는' 데이터 흐름인 Props와 반대로 **'올라가는'** 이벤트를 만들어 컴포넌트 간의 완전한 상호작용을 가능하게 함.
+```
+
+
+## 🔵 emit 메서드
+```bash
+$emit(event, …args)
+```
+- 자식 컴포넌트가 이벤트를 발생시켜 부모 컴포넌트에게 신호를 보내고 데이터를 전달하는 기능
+- **event**
+    - 커스텀 이벤트 이름
+- **args**
+    - 추가 인자
+
+### TIP 
+- ‘$’ 표기
+    - Vue 인스턴스의 내부 변수를 가리킵니다.
+    - Life cycle hooks, 인스턴스 메서드 등 내부 특정 속성에 접근할 때 사용합니다.
+
+
+--
+
+
+# ✅ 이벤트 발신 및 수신
+
+## 🔵 이벤트 발신 및 수신 (Emitting and Listening to Events)
+1. $emit을 사용하여 템플릿 표현식에서 직접 사용자 정의 이벤트를 발신
+```html
+<!-- 자식 컴포넌트 -->
+<button @click="$emit('someEvent')">클릭</button>
+```
+
+2. 부모 컴포넌트에서는 v-on(또는 @)을 사용하여 이벤트를 수신할 수 있음
+```html
+<!-- 부모 컴포넌트 -->
+<ParentComp @some-event="someCallback" />
+```
+
+
+## 🔵 이벤트 발신 및 수신하기 (1/2)
+- ParentChild에서 someEvent라는 이름의 사용자 정의 이벤트를 발신
+
+### 📄 ParentChild.vue
+```html
+<template>
+  <div>
+    <button @click="$emit('someEvent')">클릭</button>
+  </div>
+</template>
+```
+
+
+## 🔵 이벤트 발신 및 수신 (2/2)
+- ParentChild의 부모 Parent는 v-on을 사용하여 발신된 **이벤트를 수신**
+- 수신 후 처리할 **콜백함수** 호출
+
+### 📄 Parent.vue
+```html
+<template>
+  <div>
+    <ParentChild
+      @some-event="someCallback"
+      my-msg="message"
+      :dynamic-props="name"
+    />
+  </div>
+</template>
+
+<script setup>
+const someCallback = function () {
+  console.log('ParentChild가 발신한 이벤트를 수신했어요.')
+}
+</script>
+```
+
+
+---
+
+
+# ✅ emit 이벤트 선언
+
+## 🔵 emit 이벤트 선언
+- `defineEmits()` 를 사용하여 발신할 이벤트를 선언
+- props와 마찬가지로 defineEmits()에 작성하는 인자의 데이터 타입에 따라 선언 방식이 나뉨
+    - 배열
+    - 객체 (가급적 객체를 활용한 선언을 추천)
+- defineEmits()는 `<script setup>` 내에서 이벤트를 발신하기 위한 **emit 함수를 반환** 
+    
+    (템플릿의 $emit과 달리 `<script setup>`에서는 직접 접근 불가)
+
+
+## 🔵 emit 이벤트 선언 활용
+- 이벤트 선언 방식으로 추가 버튼 작성 및 결과 확인
+
+### 📄 ParentChild.vue
+```html
+<template>
+  <div>
+    <button @click="buttonClick">클릭</button>
+  </div>
+</template>
+
+<script setup>
+// emit 이벤트 선언 (배열방식)
+const emit = defineEmits(['someEvent'])
+
+const buttonClick = function () {
+  emit('someEvent')
+}
+</script>
+```
+
+### 📄 Parent.vue
+```html
+<template>
+  <div>
+    <ParentChild
+      @some-event="someCallback"
+      my-msg="message"
+      :dynamic-props="name"
+    />
+  </div>
+</template>
+
+<script setup>
+const someCallback = function () {
+  console.log('ParentChild가 발신한 이벤트를 수신했어요.')
+}
+</script>
+```
+
+
+---
+
+
+# ✅ 이벤트 전달
+
+## 🔵 이벤트 인자 (Event Arguments)
+1. ParentChild에서 이벤트 발신하며 Parent로 추가 인자 전달하기
+```JS
+// 자식 컴포넌트
+
+const emit = defineEmits(['emitArgs'])
+
+const emitArgs = function () {
+  emit('emitArgs', 1, 2, 3)
+}
+```
+
+2. ParentChild에서 발신한 이벤트를 Parent에서 수신
+```JS
+// 부모 컴포넌트
+
+const getNumbers = function (...args) {
+  console.log(args)
+  console.log(`ParentChild가 전달한 추가인자 ${args}를 수신했어요.`)
+}
+```
+
+
+## 🔵 이벤트 인자 전달 활용 (1/3)
+1. ParentChild에서 이벤트를 발신하여 Parent로 추가 인자 전달하기
+
+### 📄 ParentChild.vue
+```html
+<template>
+  <div>
+    <button @click="emitArgs">추가 인자 전달</button>
+  </div>
+</template>
+
+<script setup>
+const emit = defineEmits(['emitArgs'])
+
+const emitArgs = function () {
+  emit('emitArgs', 1, 2, 3)
+}
+</script>
+```
+
+
+## 🔵 이벤트 인자 전달 활용 (2/3)
+2. ParentChild에서 이벤트를 발신하여 Parent로 추가 인자 전달하기
+### 📄 Parent.vue
+```html
+<template>
+  <div>
+    <ParentChild 
+      @emit-args="getNumbers"
+    />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import ParentChild from '@/components/ParentChild.vue'
+
+const getNumbers = function (...args) {
+  console.log(args)
+  console.log(`ParentChild가 전달한 추가인자 ${args}를 수신했어요.`)
+}
+</script>
+```
+
+
+## 🔵 이벤트 인자 전달 활용 (3/3)
+3. 결과 확인
+
+![alt text](image-4.png)
+
+
+---
+
+
+# ✅ 이벤트 세부사항
+
+## 🔵 Event Name Casing
+- 선언 및 발신 시 (→ camelCase)
+```html
+<button @click="$emit('someEvent')">클릭</button>
+
+<script setup>
+const emit = defineEmits(['someEvent'])
+
+emit('someEvent')
+</script>
+```
+- 부모 컴포넌트에서 수신 시 (→ kebab-case)
+```html
+<ParentChild @some-event="…" />
+```
+
+
+---
+
+
+# ✅ emit 이벤트 활용
+
+## 🔵 emit 이벤트 실습 (1/4)
+- 목표: 최하단 컴포넌트 ParentGrandChild에서 Parent 컴포넌트의 name 변수 변경 요청하기
+
+1. ParentGrandChild에서 이름 변경을 요청하는 이벤트 발신
+### 📄 ParentGrandChild.vue
+```html
+<template>
+  <div>
+    <button @click="updateName">이름 변경</button>
+  </div>
+</template>
+
+<script setup>
+const emit = defineEmits(['updateName'])
+const updateName = function () {
+  emit('updateName')
+}
+</script>
+```
+![alt text](image-5.png)
+
+
+## 🔵 emit 이벤트 실습 (2/4)
+2. 이벤트 수신 후 이름 변경을 요청하는 이벤트 발신
+
+### 📄 ParentChild.vue
+```html
+<template>
+  <div>
+    <ParentGrandChild :my-msg="myMsg" @update-name="updateName" />
+  </div>
+</template>
+
+<script setup>
+import ParentGrandChild from '@/components/ParentGrandChild.vue'
+
+const emit = defineEmits(['someEvent', 'emitArgs', 'updateName'])
+
+const updateName = function () {
+  emit('updateName')
+}
+</script>
+```
+![alt text](image-6.png)
+
+
+## 🔵 emit 이벤트 실습 (3/4)
+3. 이벤트 수신 후 이름 변수 변경 메서드 호출
+    
+    (해당 변수를 props으로 받는 모든 곳에서 자동 업데이트)
+
+### 📄 Parent.vue
+```html
+<template>
+  <div>
+    <ParentChild @update-name="updateName" />
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+import ParentChild from '@/components/ParentChild.vue'
+
+const name = ref('Alice')
+const updateName = function () {
+  name.value = 'Bella'
+}
+</script>
+```
+
+
+## 🔵 emit 이벤트 실습 (4/4)
+4. 버튼 클릭 후 결과 확인
+
+![alt text](image-7.png)
+
+
+---
+
+
+# ✅ 정적 & 동적 props 주의사항
+
+- 첫 번째는 정적 props로 문자열 “1”을 전달
+
+- 두 번째는 동적 props로 숫자 1을 전달
+
+```html
+<!-- 1 -->
+<SomeComponent num-props="1" />
+
+<!-- 2 -->
+<SomeComponent :num-props="1" />
+```
+
+
+---
+
+
+# ✅ Props & Emit 객체 선언 문법
+
+## 🔵 Props 선언 시 “객체 선언 문법”을 권장하는 이유
+- 컴포넌트의 의도를 명확히 하여 가독성을 높이고, 다른 개발자가 잘못된 타입의 데이터를 전달했을 때 콘솔에 경고를 출력하여 실수를 방지
+- 추가로 props에 대한 유효성 검사로써 활용 가능
+
+```js
+defineProps({
+  // 여러 타입 허용
+  propB: [String, Number],
+  // 문자열 필수
+  propC: {
+    type: String,
+    required: true
+  },
+  // 기본 값을 가지는 숫자형
+  propD: {
+    type: Number,
+    default: 10
+  },
+  … 
+})
+```
+
+
+## 🔵 emit 이벤트도 “객체 선언 문법”으로 작성 가능
+- emit 이벤트 또한 객체 구문으로 선언 된 경우 유효성을 검사할 수 있음
+```js
+const emit = defineEmits({
+  // 유효성 검사 없음
+  click: null,   // submit 이벤트 유효성 검사
+  submit: ({ email, password }) => {
+    if (email && password) {
+      return true
+    } else {
+      console.warn('submit 이벤트가 옳지 않음')
+      return false
+    }
+  }
+})
+
+const submitForm = function (email, password) {
+  emit('submit', { email, password })
+}
+```
+
+
 ---
 
 
@@ -477,9 +893,7 @@ defineProps({
 
 ### Props
 #### ✔️ 부모 컴포넌트가 자식 컴포넌트에게 데이터를 전달할 때 사용하는 특별한 속성
-
 #### ✔️ 자식 컴포넌트는 전달받은 props를 직접 수정할 수 없으며, 읽기 전용으로 사용하는 것을 권장
-
 #### ✔️ 자식 컴포넌트
 - defineProps() 매크로를 사용해 전달받을 props를 선언
 - 문자열 배열 ['myMsg'] 또는 객체 { myMsg: String } 형태로 선언
@@ -488,40 +902,36 @@ defineProps({
 #### ✔️ 부모 컴포넌트
 - 자식 컴포넌트 태그에 속성처럼 props를 전달
 
-#### ✔️ Props 이름 컨벤션
+#### ✔️Props 이름 컨벤션
 - HTML 템플릿에서는 kebab-case (my-msg)
-
 - JavaScript에서는 camelCase (myMsg)
-
 - 정적 vs 동적 Props
-    - 정적 Props: 고정된 문자열 값을 전달 (my-msg="hello")
-    - 동적 Props: v-bind (또는 약어 :)를 사용하여 부모의 반응형 데이터를 전달  (:my-msg="parentData")
+  - 정적 Props: 고정된 문자열 값을 전달 (my-msg="hello")
+  - 동적 Props: v-bind (또는 약어 :)를 사용하여 부모의 반응형 데이터를 전달 (:my-msg="parentData")
 
 ### Emit
 - 자식 컴포넌트가 부모 컴포넌트에게 특정 이벤트가 발생했음을 알리고 데이터를 함께 전달하는 기능
 
 - 자식 컴포넌트
-    - `<script setup>` 안에서 defineEmits() 매크로를 사용해 발신할 이벤트를 선언
-    - defineEmits()는 emit 함수를 반환하며, 이 함수를 호출해 이벤트를 발신 (emit('eventName', data))
+  - `<script setup>` 안에서 defineEmits() 매크로를 사용해 발신할 이벤트를 선언
+  - defineEmits()는 emit 함수를 반환하며, 이 함수를 호출해 이벤트를 발신 (emit('eventName', data))
 
 - 부모 컴포넌트
-    - v-on (또는 약어 @) 디렉티브를 사용해 자식이 발신한 이벤트를 수신 (@event-name="handlerMethod")
-    - 자식이 emit으로 전달한 데이터는 부모의 핸들러 메서드에서 매개변수로 받을 수 있음
-    
+  - v-on (또는 약어 @) 디렉티브를 사용해 자식이 발신한 이벤트를 수신 (@event-name="handlerMethod")
+  - 자식이 emit으로 전달한 데이터는 부모의 핸들러 메서드에서 매개변수로 받을 수 있음
+
 
 ---
 
 
 # ✅ 활동 정리 – Todo List 협업 흐름
 
-### "Todo List를 만든다고 상상해봅시다. 전체 목록은 부모가, 각 항목은 자식이 보여줍니다. 
+### "Todo List를 만든다고 상상해봅시다. 전체 목록은 부모가, 각 항목은 자식이 보여줍니다.
 ### 이 둘은 어떻게 협력할까요?"
 
-1. 부모는 자식에게 '오늘 할 일'의 내용이 무엇인지 **Props**로 알려줌.
+1. 부모는 자식에게 '오늘 할 일'의 내용이 무엇인지 **Props**로 알려줍니다.
+2. 자식 내의 '삭제' 버튼이 눌리면, 그 사실을 부모에게 **Emit**으로 알려주고, 실제 목록에서 해당 항목을 지우도록 요청해야 합니다.
 
-2. 자식 내의 '삭제' 버튼이 눌리면, 그 사실을 부모에게 **Emit**으로 알려주고,
-   실제 목록에서 해당 항목을 지우도록 요청해야 함.
+- 이러한 Props는 위에서 아래로, Emit은 아래에서 위로 흐르는 **'단방향 데이터 흐름'** 은 Vue를 예측 가능하고 안정적으로 만드는 핵심 원칙입니다.
 
-- 이러한 Props는 위에서 아래로, Emit은 아래에서 위로 흐르는 **'단방향 데이터 흐름'** 은 Vue를 예측 가능하고 안정적으로 만드는 핵심 원칙.
-
-- 이제 우리는 이 원칙을 사용해 컴포넌트들을 체계적으로 조립할 수 있음.
+- 이제 우리는 이 원칙을 사용해 컴포넌트들을 체계적으로 조립할 수 있습니다.
