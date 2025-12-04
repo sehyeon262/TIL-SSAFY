@@ -56,7 +56,7 @@
 
 
 ## 🔵 SSR에서의 Routing
-- SSR에서 routing은 **서버** 측에서 수행
+- SSR(Server Side Rendering)에서 routing은 **서버** 측에서 수행
 - 서버가 사용자가 방문한 URL 경로를 기반으로 응답을 전송
 - 링크를 클릭하면 브라우저는 서버로부터 HTML 응답을 수신하고 **새 HTML로 전체 페이지를 다시 로드**
 
@@ -66,7 +66,7 @@
 
 
 ## 🔵 CSR에서의 Routing
-- CSR에서의 routing은 **클라이언트** 측(브라우저)에서 수행
+- CSR(Client Side Rendering)에서의 routing은 **클라이언트** 측(브라우저)에서 수행
 - 클라이언트 측 JavaScript가 새 데이터를 동적으로 가져와 전체 페이지를 다시 로드하지 않음
 
 > 💡 **CSR** : 서버는 뼈대만 주고, 브라우저가 직접 페이지를 그리는 방식
