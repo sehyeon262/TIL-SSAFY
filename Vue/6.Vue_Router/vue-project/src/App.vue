@@ -14,14 +14,16 @@ const userId = ref(1)
       <HelloWorld msg="You did it!" />
 
       <nav>
-        <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+        <!-- a태그 처럼 이동할 수 있는 링크 -->
+        <RouterLink :to="{ name: 'home' }">Home</RouterLink>  
         <RouterLink :to="{ name: 'about' }">About</RouterLink>
-        <RouterLink :to="{ name: 'user', params: { id: userId } }">User</RouterLink>
+        <RouterLink :to="{ name: 'user', params: { id: userId } }">User Page</RouterLink>
         <RouterLink :to="{ name: 'login' }">Login</RouterLink>
       </nav>
     </div>
   </header>
 
+  <!-- 화면 전환할 때 보여지는 영역 -->
   <RouterView />
 </template>
 

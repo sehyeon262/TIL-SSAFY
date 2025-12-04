@@ -13,6 +13,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      // 실행할 view 함수
       component: HomeView,
     },
     {
